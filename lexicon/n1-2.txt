@@ -203,11 +203,13 @@ kabwira
 kachawa
 kachenjede
 kachenzi
+kachere
 kacherenthundu
 kachesa
 kachikhutu
 kachikhweru
 kachipapa
+kachirawede
 kachisi
 kachiti
 kachoso
@@ -718,6 +720,9 @@ mwinikhutu
 mwiri
 mwiyo
 mzamba
+mzibambo
+mzimayi
+mzime
 mzimizi
 mzinanga
 mzondi
