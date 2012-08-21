@@ -203,13 +203,11 @@ kabwira
 kachawa
 kachenjede
 kachenzi
-kachere
 kacherenthundu
 kachesa
 kachikhutu
 kachikhweru
 kachipapa
-kachirawede
 kachisi
 kachiti
 kachoso
@@ -370,7 +368,6 @@ kamvamgugu
 kamvere
 kamvulumvulu
 kamwachale
-kamwana
 kamwanakhule
 kamwendom'njira
 kanamkalimbwe
@@ -624,6 +621,7 @@ mlendo
 mlenje
 mlerankhungwa
 mlesi
+mleza
 mlezi
 mlimi
 mlonda
@@ -720,9 +718,6 @@ mwinikhutu
 mwiri
 mwiyo
 mzamba
-mzibambo
-mzimayi
-mzime
 mzimizi
 mzinanga
 mzondi
