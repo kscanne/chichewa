@@ -75,7 +75,6 @@ chuzimbi
 chuzu
 dada
 dadingoli
-dalaiva
 dambi
 dambolachepa
 deka
@@ -301,6 +300,7 @@ kalitushu
 kaliwo
 kalize
 kalonga
+kaloti
 kalowerera
 kalozera
 kalulu
