@@ -85,8 +85,14 @@ n18.txt: n18-x.txt
 verbs.txt: vi.txt vt.txt
 	cat vi.txt vt.txt | LC_ALL=C sort -u > $@
 
-vadjs.txt: verbs.txt
-	(egrep -v '^[^aeiou]*[aeiou]+$$' verbs.txt | sed 's/^/AKU+/'; cat verbs.txt | sed 's/^/OF+ku/') | perl $(GEN) | sed 's/ .*//' | LC_ALL=C sort -u > $@
+verbs-multi.txt: verbs.txt
+	egrep -v '^[^aeiou]*[aeiou]+$$' verbs.txt > $@
+
+verbs-infl.txt: vi.txt vt.txt
+	(cat vt.txt | egrep 'a$$' | sed 's/a$$//' | sed 's/.*/NM+SM+TM+OM^&^AM/'; cat vi.txt | egrep 'a$$' | sed 's/a$$//' | sed 's/.*/NM+SM+TM^&^AM/') | perl $(GEN) > $@
+
+vadjs.txt: verbs-multi.txt verbs.txt
+	(cat verbs-multi.txt | sed 's/^/AKU+/'; cat verbs-multi.txt | sed 's/^/AKU+sa+/'; cat verbs.txt | sed 's/^/OF+ku/') | perl $(GEN) | sed 's/ .*//' | LC_ALL=C sort -u > $@
 
 adjs.txt: adj-pure.txt adj-stem.txt $(GEN)
 	(cat adj-stem.txt | sed 's/^/OF+/'; cat adj-pure.txt | sed 's/^/DBL+/') | perl $(GEN) | sed 's/ .*//' | sed 's/^wammuna$$/wamwamuna/' | LC_ALL=C sort -u > $@
@@ -108,4 +114,4 @@ badclusters.txt: suspect.txt
 	cat suspect.txt | tolow | egrep -o "[^aeiou']{2,}" | LC_ALL=C sort | uniq -c | LC_ALL=C sort -r -n > $@
 
 clean:
-	rm -f $(NOUNS) suspect.txt badclusters.txt n*-pl.txt adjs.txt verbs.txt preps.txt poss.txt numbers.txt vadjs.txt
+	rm -f $(NOUNS) suspect.txt badclusters.txt n*-pl.txt adjs.txt verbs.txt preps.txt poss.txt numbers.txt vadjs.txt verbs-multi.txt verbs-infl.txt
