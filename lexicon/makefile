@@ -1,4 +1,4 @@
-MAINTAINED=n12-13.txt n1-2.txt n14-6.txt n1-4.txt n14-x.txt n1-6.txt n16-x.txt n17-x.txt n18-x.txt n1-x.txt n3-4.txt n3-x.txt n5-6.txt n5-x.txt n7-6.txt n7-8.txt n7-x.txt n9-10.txt nx-13.txt nx-2.txt nx-6.txt vi.txt vt.txt adj-pure.txt adj-stem.txt preps-in.txt poss-stems.txt number-stems.txt numbers-in.txt
+MAINTAINED=n12-13.txt n1-2.txt n14-6.txt n1-4.txt n14-x.txt n1-6.txt n16-x.txt n17-x.txt n18-x.txt n1-x.txt n3-4.txt n3-x.txt n5-6.txt n5-x.txt n7-6.txt n7-8.txt n7-x.txt n9-10.txt nx-13.txt nx-6.txt vi.txt vt.txt adj-pure.txt adj-stem.txt preps-in.txt poss-stems.txt number-stems.txt numbers-in.txt
 NOUNS=n1.txt n2.txt n3.txt n4.txt n5.txt n6.txt n7.txt n8.txt n9.txt n10.txt n12.txt n13.txt n14.txt n15.txt n16.txt n17.txt n18.txt
 FILTER=../scripts/filterbad
 GEN=../scripts/gen.pl
@@ -9,12 +9,12 @@ n1.txt: n1-2.txt n1-4.txt n1-6.txt n1-x.txt
 	cat n1-2.txt n1-4.txt n1-6.txt n1-x.txt | LC_ALL=C sort -u > $@
 
 n1-2-pl.txt: n1-2.txt
-	cat n1-2.txt | sed "s/^m'phera/a&/; s/^m\(khiris\)/a\1/; s/^m\(phunzitsi\)/a\1/; s/^mwanawa/anaa/; s/^mwini/eni/; s/^[^aemw]/a&/; s/^muy/a&/; s/^m['u]/a/; s/^m[abo]/a&/; s/^m\([cdfgjlmnsz]\)/a\1/; s/^m\([kpt][^h]\)/a\1/; s/^m[kpt]h/a&/; s/^mwa/a/; s/^mwi/a&/; s/^w[^o]/a&/; s/^wo/o/" > just1-2.txt
+	cat n1-2.txt | sed "s/^m'phera/a&/; s/^m\(khiris\)/a\1/; s/^m\(phunzitsi\)/a\1/; s/^mwanawa/anaa/; s/^mwini/eni/; s/^wakutiw/akuti/; s/^[^aemw]/a&/; s/^muy/a&/; s/^m['u]/a/; s/^m[abo]/a&/; s/^m\([cdfgjlmnsz]\)/a\1/; s/^m\([kpt][^h]\)/a\1/; s/^m[kpt]h/a&/; s/^mwa/a/; s/^mwi/a&/; s/^w[^o]/a&/; s/^wo/o/" > just1-2.txt
 	paste n1-2.txt just1-2.txt > $@
 	rm -f just1-2.txt
 
-n2.txt: n1-2-pl.txt nx-2.txt
-	(cat nx-2.txt; cat n1-2-pl.txt | sed 's/^[^\t]*\t//') | LC_ALL=C sort -u > $@
+n2.txt: n1-2-pl.txt
+	cat n1-2-pl.txt | sed 's/^[^\t]*\t//' | LC_ALL=C sort -u > $@
 
 n3.txt: n3-4.txt n3-x.txt
 	cat n3-4.txt n3-x.txt | LC_ALL=C sort -u > $@
