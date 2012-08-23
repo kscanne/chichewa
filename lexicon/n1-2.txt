@@ -1,7 +1,5 @@
 abakadya
 abwito
-adakulasa
-akamwiniatsatana
 akutsano
 aleka
 alubino
@@ -511,6 +509,7 @@ kawotche
 kazembe
 kazimoto
 kazitape
+khakhakha
 khanganjovu
 khanje
 khongwe
@@ -570,6 +569,7 @@ mataya
 matsakamula
 mayi
 mbadiri
+mbatizi
 mbaye
 mbusa
 mbuyawo
@@ -595,6 +595,7 @@ mfunthi
 mgonthi
 mgumi
 mguwiti
+mgwala
 mgwirizi
 mjira
 mjomba
@@ -658,6 +659,7 @@ mphambe
 mphawi
 mpheranjiru
 mphunzitsi
+mpondamatiki
 mpongozi
 msandionekuda
 msenzatutwa
@@ -700,6 +702,7 @@ muwaki
 muwulutsi
 muya
 muyemba
+mvundulamadzi
 mwafuli
 mwamuna
 mwamunamuna
@@ -981,9 +984,13 @@ vulavula
 vumbwe
 vunduzi
 wachisamba
+wadzitho
 wagaleta
 waganyu
 wakaliumila
+wakuba
+wakufa
+wakutiwakuti
 wam'bindikiro
 wam'bwalo
 wam'goli
@@ -995,14 +1002,20 @@ wamaliseche
 wamaliwongo
 wamalonda
 wamamina
+wamanda
 wamangawa
 wamanunda
 wamasiye
 wambwalo
+wamoyo
+wamphamvu
 wamphasa
 wandende
+wankhondo
 wanthabwala
 wanthanthi
+wanzeru
+wapamwamba
 waphwete
 wasoko
 woba
