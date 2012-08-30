@@ -26,6 +26,7 @@ bokho
 boliboli
 bololo
 bombe
+bonga
 bongololo
 bongwe
 bowo
@@ -35,6 +36,7 @@ buli
 bulu
 buluzi
 bundukutu
+buthu
 buwi
 bwaliri
 bwamnoni
@@ -73,6 +75,7 @@ chuzimbi
 chuzu
 dada
 dadingoli
+dambalitsiro
 dambi
 dambolachepa
 deka
@@ -151,6 +154,7 @@ goyani
 gubu
 gudu
 gugu
+gulamamine
 gulo
 gulugufe
 gulule
@@ -205,6 +209,7 @@ kachesa
 kachikhutu
 kachikhweru
 kachipapa
+kachirawede
 kachisi
 kachiti
 kachoso
@@ -223,6 +228,7 @@ kadyakolo
 kadyali
 kadyamkwichi
 kadyamlamu
+kadyamnsonga
 kadyankhadze
 kadyole
 kadyolidyoli
@@ -262,6 +268,7 @@ kakolo
 kakolwa
 kakombo
 kakowa
+kakoza
 kakozi
 kakukuku
 kakwiyo
@@ -279,6 +286,7 @@ kalicheche
 kaligande
 kaligo
 kaligondo
+kaligonire
 kalijosolo
 kalikongwe
 kalikwikwiti
@@ -293,6 +301,7 @@ kalinde
 kalingumbwa
 kalirole
 kalirombe
+kalisere
 kalisewe
 kalitushu
 kaliwo
@@ -307,6 +316,7 @@ kalumbalumba
 kalumbelumbe
 kalungusese
 kalungwe
+kalusere
 kam'bale
 kam'bambe
 kama
@@ -401,6 +411,7 @@ kansire
 kanthing'anthi
 kanthona
 kanthulula
+kanthungulu
 kanthusha
 kanungu
 kanyambwebwe
@@ -440,6 +451,7 @@ kapitawo
 kapolo
 kapombodza
 kapondo
+kapote
 kapsala
 kapuchi
 kapuku
@@ -474,6 +486,7 @@ katanda
 katangale
 katawa
 katayamadzi
+katchembere
 katchenjeneko
 katcheretchere
 katemo
@@ -548,6 +561,7 @@ lende
 leza
 ligondo
 likakatuwe
+limbwi
 lumbe
 lumbu
 lumbwana
@@ -898,6 +912,7 @@ phatha
 phathiphathi
 phepheru
 pheterere
+phungu
 phwiti
 phwitika
 pida
@@ -961,6 +976,7 @@ telala
 thangatambeta
 these
 thimbwidza
+thondolo
 thyala
 tikwi
 timba
@@ -976,6 +992,7 @@ tsekwe
 tsengachiputu
 tsibwi
 tsinzinan'tole
+tsokomole
 tsokonombwe
 tsokopiyo
 tsoyo
