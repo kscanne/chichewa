@@ -1,10 +1,21 @@
 NOUNS=n1.txt n2.txt n3.txt n4.txt n5.txt n6.txt n7.txt n8.txt n9.txt n10.txt n12.txt n13.txt n14.txt n15.txt n16.txt n17.txt n18.txt
-FILTER=../scripts/filterbad
+FILTER=../scripts/filterbad.sh
 GEN=../scripts/gen.pl
+# point to a spell checking word list for testing
+CLEAN=/usr/local/share/crubadan/ny/GLAN
+FREQ=/usr/local/share/crubadan/ny/FREQ
 
-# add verbs-infl.txt
-all.txt: $(NOUNS) verbs.txt adjs.txt preps.txt poss.txt numbers.txt vadjs.txt rel.txt dem.txt interr.txt advs.txt
-	cat $(NOUNS) verbs.txt adjs.txt preps.txt poss.txt numbers.txt vadjs.txt rel.txt dem.txt interr.txt advs.txt | LC_ALL=C sort -u > $@
+all.txt: $(NOUNS) verbs-infl.txt adjs.txt preps.txt poss.txt numbers.txt vadjs.txt rel.txt dem.txt interr.txt advs.txt pronouns.txt
+	cat $(NOUNS) verbs-infl.txt adjs.txt preps.txt poss.txt numbers.txt vadjs.txt rel.txt dem.txt interr.txt advs.txt pronouns.txt | LC_ALL=C sort -u > $@
+
+clean.txt: $(CLEAN)
+	cp -f $(CLEAN) clean.txt
+
+freq.txt: $(FREQ)
+	cp -f $(FREQ) freq.txt
+
+freq-todo.txt: freq.txt all.txt $(FILTER) bad.txt
+	cat freq.txt | sed 's/^ *[0-9]* //' | egrep -v '.[A-Z]' | bash $(FILTER) -v | keepif -n all.txt | keepif -n bad.txt > $@
 
 n1.txt: n1-2.txt n1-4.txt n1-6.txt n1-x.txt
 	cat n1-2.txt n1-4.txt n1-6.txt n1-x.txt | LC_ALL=C sort -u > $@
@@ -104,8 +115,9 @@ n13.txt: n12-13-pl.txt nx-13.txt
 n14.txt: n14-6.txt n14-x.txt
 	cat n14-6.txt n14-x.txt | LC_ALL=C sort -u > $@
 
-n15.txt: verbs.txt
-	cat verbs.txt | sed 's/^/ku/' > $@
+# negative infinitives count as n15 too
+n15.txt: verbs-inf.txt verbs-neginf.txt
+	cat verbs-inf.txt verbs-neginf.txt | LC_ALL=C sort -u > $@
 
 n16.txt: n16-x.txt
 	cat n16-x.txt | LC_ALL=C sort -u > $@
@@ -122,8 +134,31 @@ verbs.txt: vi.txt vt.txt
 verbs-multi.txt: verbs.txt
 	egrep -v '^[^aeiou]*[aeiou]+$$' verbs.txt > $@
 
-verbs-infl.txt: vi.txt vt.txt $(GEN)
-	(cat vt.txt | egrep 'a$$' | sed 's/a$$//' | sed 's/.*/NM+SM+TM+OM^&^AM/'; cat vi.txt | egrep 'a$$' | sed 's/a$$//' | sed 's/.*/NM+SM+TM^&^AM/') | perl $(GEN) | sed 's/ .*//' > $@
+# See Maxson Ch. 23; osa- on p.136
+verbs-imper.txt: verbs.txt
+	cat verbs.txt | sed 's/^.*$$/&\n&ni\nta&ni\nosa&/' | LC_ALL=C sort -u > $@
+
+verbs-inf.txt: verbs.txt
+	cat verbs.txt | sed 's/^/ku/' | LC_ALL=C sort -u > $@
+
+verbs-neginf.txt: verbs.txt
+	cat verbs.txt | sed 's/^/kusa/' | LC_ALL=C sort -u > $@
+
+# generically, inflected verbs with SM. Cases without SM:
+# infinitives (positive and negative) in n15.txt
+# imperatives in verbs-imper.txt target
+verbs-infl.txt: verbs-reginfl.txt verbs-li.txt verbs-imper.txt verbs-ndi.txt
+	cat verbs-reginfl.txt verbs-li.txt verbs-imper.txt verbs-ndi.txt | LC_ALL=C sort -u > $@
+
+# regularly inflected verbs, all cases with a SM
+verbs-reginfl.txt: vi.txt vt.txt verbs-li.txt verbs-imper.txt $(GEN)
+	(cat vt.txt | egrep 'a$$' | sed 's/a$$//' | sed 's/.*/NM+SM+TM+OM^&^AM/'; cat vi.txt | egrep 'a$$' | sed 's/a$$//' | sed 's/.*/NM+SM+TM^&^AM/') | perl $(GEN) | sed 's/ .*//' | LC_ALL=C sort -u > $@
+
+verbs-li.txt: $(GEN)
+	(echo "NM+SM+LITM^li^"; echo "SM+LITM^libe^") | perl $(GEN) | sed 's/ .*//' | LC_ALL=C sort -u > $@
+
+verbs-ndi.txt: that1.txt
+	(echo "ndi"; echo "si"; cat that1.txt pronouns.txt | egrep '^i' | sed 's/^.*$$/nd&\nsind&/') | LC_ALL=C sort -u > $@
 
 vadjs.txt: verbs-multi.txt verbs.txt $(GEN)
 	(cat verbs-multi.txt | sed 's/^/AKU+/'; cat verbs-multi.txt | sed 's/^/AKU+sa+/'; cat verbs.txt | sed 's/^/OF+ku/') | perl $(GEN) | sed 's/ .*//' | LC_ALL=C sort -u > $@
@@ -167,8 +202,8 @@ that2.txt: this2.txt
 dem.txt: this1.txt this2.txt that1.txt that2.txt
 	cat this1.txt this2.txt that1.txt that2.txt | LC_ALL=C sort -u > $@
 
-interr.txt: interr-stems.txt
-	cat interr-stems.txt | sed 's/^/SM+/' | perl $(GEN) | sed 's/ .*//' | LC_ALL=C sort -u > $@
+interr.txt: interr-stems.txt interr-in.txt $(GEN)
+	(cat interr-in.txt; cat interr-stems.txt | sed 's/^/SM+/' | perl $(GEN) | sed 's/ .*//') | LC_ALL=C sort -u > $@
 
 # kamodzi, kawiri, etc. for "once", "twice", ...
 numbers.txt: numbers-in.txt number-stems.txt $(GEN)
@@ -181,4 +216,4 @@ badclusters.txt: suspect.txt
 	cat suspect.txt | tolow | egrep -o "[^aeiou']{2,}" | LC_ALL=C sort | uniq -c | LC_ALL=C sort -r -n > $@
 
 clean:
-	rm -f $(NOUNS) suspect.txt badclusters.txt n*-pl.txt adjs.txt verbs.txt preps.txt poss.txt numbers.txt vadjs.txt verbs-multi.txt verbs-infl.txt this*.txt that*.txt dem.txt interr.txt irreg-adjs.txt rel.txt other.txt actual.txt any.txt
+	rm -f $(NOUNS) suspect.txt badclusters.txt n*-pl.txt adjs.txt verbs.txt preps.txt poss.txt numbers.txt vadjs.txt verbs-multi.txt verbs-infl.txt this*.txt that*.txt dem.txt interr.txt irreg-adjs.txt rel.txt other.txt actual.txt any.txt all.txt verbs-li.txt verbs-imper.txt verbs-inf.txt verbs-neginf.txt verbs-reginfl.txt verbs-ndi.txt
