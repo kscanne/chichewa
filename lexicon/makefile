@@ -172,7 +172,7 @@ actual.txt: other.txt
 any.txt: $(GEN)
 	echo "ANY+nse" | perl $(GEN) | sed 's/ .*//' | LC_ALL=C sort -u > $@
 
-irreg-adjs.txt: $(GEN) other.txt actual.txt
+irreg-adjs.txt: $(GEN) any.txt other.txt actual.txt
 	(cat any.txt other.txt actual.txt; (echo "MWE+kha"; echo "MWE+nse") | perl $(GEN) | sed 's/ .*//') | LC_ALL=C sort -u > $@
 
 adjs.txt: irreg-adjs.txt adj-pure.txt adj-stems.txt $(GEN)
@@ -216,4 +216,4 @@ badclusters.txt: suspect.txt
 	cat suspect.txt | tolow | egrep -o "[^aeiou']{2,}" | LC_ALL=C sort | uniq -c | LC_ALL=C sort -r -n > $@
 
 clean:
-	rm -f $(NOUNS) suspect.txt badclusters.txt n*-pl.txt adjs.txt verbs.txt preps.txt poss.txt numbers.txt vadjs.txt verbs-multi.txt verbs-infl.txt this*.txt that*.txt dem.txt interr.txt irreg-adjs.txt rel.txt other.txt actual.txt any.txt all.txt verbs-li.txt verbs-imper.txt verbs-inf.txt verbs-neginf.txt verbs-reginfl.txt verbs-ndi.txt
+	rm -f $(NOUNS) suspect.txt badclusters.txt n*-pl.txt adjs.txt verbs.txt preps.txt poss.txt numbers.txt vadjs.txt verbs-multi.txt verbs-infl.txt this*.txt that*.txt dem.txt interr.txt irreg-adjs.txt rel.txt other.txt actual.txt any.txt all.txt verbs-li.txt verbs-imper.txt verbs-inf.txt verbs-neginf.txt verbs-reginfl.txt verbs-ndi.txt freq-todo.txt
