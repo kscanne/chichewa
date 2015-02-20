@@ -7,7 +7,7 @@ all.txt: $(NOUNS) verbs-infl.txt adjs.txt preps.txt poss.txt numbers.txt vadjs.t
 	cat $(NOUNS) verbs-infl.txt adjs.txt preps.txt poss.txt numbers.txt vadjs.txt rel.txt dem.txt interr.txt advs.txt pronouns.txt | LC_ALL=C sort -u > $@
 
 freq-todo.txt: freq.txt all.txt $(FILTER) bad.txt
-	cat freq.txt | sed 's/^ *[0-9]* //' | egrep -v '.[A-Z]' | bash $(FILTER) -v | $(KEEPIF) -n all.txt | $(KEEPIF) -n bad.txt > $@
+	cat freq.txt | sed 's/^ *[0-9]* //' | egrep -v '.[A-Z]' | bash $(FILTER) -v | perl $(KEEPIF) -n all.txt | perl $(KEEPIF) -n bad.txt > $@
 
 n1.txt: n1-2.txt n1-4.txt n1-6.txt n1-x.txt
 	cat n1-2.txt n1-4.txt n1-6.txt n1-x.txt | LC_ALL=C sort -u > $@
