@@ -1,0 +1,82 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+use utf8;
+
+sub mylc {
+	my ($carachtar) = @_;
+	$carachtar = lc($carachtar);
+	return $carachtar;
+}
+
+# note special code for Irish - should maybe pass a "lang" param???
+sub mylcfirst {
+	my ($word) = @_;
+	if ($word =~ /^([nt])([AEIOUÁÉÍÓÚ])(.+)/) {
+		$word = "$1-".mylc($2).$3; 
+	}
+	elsif ($word =~ /^([bdm]'[AEIOUÁÉÍÓÚ]|mB|gC|nD|bhF|nG|bP|tS|dT)/) {
+		$word =~ s/^([a-z']+)([A-ZÁÉÍÓÚ])(.*)$/$1.mylc($2).$3/e;
+	}
+	else {
+		$word =~ s/^(.)(.*)$/mylc($1).$2/e;
+	}
+	return $word;
+}
+
+###################################################
+##########  Start of Main #########################
+###################################################
+if ($#ARGV < 0 || $#ARGV > 1 || ($#ARGV==1 && ($ARGV[0] ne "-n"))) {
+	print "Usage: keepif [-n] CONSTFILE\n";
+	print "This is a filter that (by default) keeps only words that are\n";
+	print "in CONSTFILE, and with -n keeps words that are not in CONSTFILE\n";
+	exit;
+}
+
+my $constarbad=0;
+if ($#ARGV==1) {
+	$constarbad=1;
+	shift;
+}
+my $mode = ":utf8";
+
+binmode STDIN, $mode;
+binmode STDOUT, $mode;
+binmode STDERR, $mode;
+open(CONST, "<$mode", $ARGV[0]) or die "Cannot open '$ARGV[0]': $!";
+
+my %seen;
+while (<CONST>) {
+	chomp;
+	$seen{$_}++;
+}
+close CONST;
+
+if ($constarbad) {
+	while (<STDIN>) {
+		chomp;
+		if (!exists($seen{$_}) && !exists($seen{mylcfirst($_)})) {
+			print;
+			print "\n";
+		}
+	}
+}
+else {
+	while (<STDIN>) {
+		chomp;
+		if (length($_)==1 || exists($seen{$_})) {
+			print;
+			print "\n";
+		}
+		else {
+			if (exists($seen{mylcfirst($_)})) {
+				print;
+				print "\n";
+			}
+		}
+	}
+}
+
+exit 0;

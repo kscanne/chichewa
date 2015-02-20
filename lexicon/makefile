@@ -1,12 +1,13 @@
 NOUNS=n1.txt n2.txt n3.txt n4.txt n5.txt n6.txt n7.txt n8.txt n9.txt n10.txt n12.txt n13.txt n14.txt n15.txt n16.txt n17.txt n18.txt
 FILTER=../scripts/filterbad.sh
 GEN=../scripts/gen.pl
+KEEPIF=../scripts/keepif
 
 all.txt: $(NOUNS) verbs-infl.txt adjs.txt preps.txt poss.txt numbers.txt vadjs.txt rel.txt dem.txt interr.txt advs.txt pronouns.txt
 	cat $(NOUNS) verbs-infl.txt adjs.txt preps.txt poss.txt numbers.txt vadjs.txt rel.txt dem.txt interr.txt advs.txt pronouns.txt | LC_ALL=C sort -u > $@
 
 freq-todo.txt: freq.txt all.txt $(FILTER) bad.txt
-	cat freq.txt | sed 's/^ *[0-9]* //' | egrep -v '.[A-Z]' | bash $(FILTER) -v | keepif -n all.txt | keepif -n bad.txt > $@
+	cat freq.txt | sed 's/^ *[0-9]* //' | egrep -v '.[A-Z]' | bash $(FILTER) -v | $(KEEPIF) -n all.txt | $(KEEPIF) -n bad.txt > $@
 
 n1.txt: n1-2.txt n1-4.txt n1-6.txt n1-x.txt
 	cat n1-2.txt n1-4.txt n1-6.txt n1-x.txt | LC_ALL=C sort -u > $@
