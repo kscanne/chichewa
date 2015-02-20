@@ -1,18 +1,9 @@
 NOUNS=n1.txt n2.txt n3.txt n4.txt n5.txt n6.txt n7.txt n8.txt n9.txt n10.txt n12.txt n13.txt n14.txt n15.txt n16.txt n17.txt n18.txt
 FILTER=../scripts/filterbad.sh
 GEN=../scripts/gen.pl
-# point to a spell checking word list for testing
-CLEAN=/usr/local/share/crubadan/ny/GLAN
-FREQ=/usr/local/share/crubadan/ny/FREQ
 
 all.txt: $(NOUNS) verbs-infl.txt adjs.txt preps.txt poss.txt numbers.txt vadjs.txt rel.txt dem.txt interr.txt advs.txt pronouns.txt
 	cat $(NOUNS) verbs-infl.txt adjs.txt preps.txt poss.txt numbers.txt vadjs.txt rel.txt dem.txt interr.txt advs.txt pronouns.txt | LC_ALL=C sort -u > $@
-
-clean.txt: $(CLEAN)
-	cp -f $(CLEAN) clean.txt
-
-freq.txt: $(FREQ)
-	cp -f $(FREQ) freq.txt
 
 freq-todo.txt: freq.txt all.txt $(FILTER) bad.txt
 	cat freq.txt | sed 's/^ *[0-9]* //' | egrep -v '.[A-Z]' | bash $(FILTER) -v | keepif -n all.txt | keepif -n bad.txt > $@
@@ -215,5 +206,16 @@ suspect.txt: all.txt $(FILTER)
 badclusters.txt: suspect.txt
 	cat suspect.txt | tolow | egrep -o "[^aeiou']{2,}" | LC_ALL=C sort | uniq -c | LC_ALL=C sort -r -n > $@
 
+################## For KPS Only #################
+# point to a spell checking word list for testing
+CLEAN=/usr/local/share/crubadan/ny/GLAN
+FREQ=/usr/local/share/crubadan/ny/FREQ
+
+crubadan-update: FORCE
+	cp -f $(CLEAN) ./clean.txt
+	cp -f $(FREQ) ./freq.txt
+
 clean:
 	rm -f $(NOUNS) suspect.txt badclusters.txt n*-pl.txt adjs.txt verbs.txt preps.txt poss.txt numbers.txt vadjs.txt verbs-multi.txt verbs-infl.txt this*.txt that*.txt dem.txt interr.txt irreg-adjs.txt rel.txt other.txt actual.txt any.txt all.txt verbs-li.txt verbs-imper.txt verbs-inf.txt verbs-neginf.txt verbs-reginfl.txt verbs-ndi.txt freq-todo.txt n12-all-pl.txt
+
+FORCE:
