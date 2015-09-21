@@ -26,6 +26,7 @@ my %morphemes = (
 	'ANY' => ['aliye','uliwo','chilicho','iliyo','lililo','kaliko','kuliko','palipo','mulimo'], # Maxson p. 165, with -nse meaning "every, all"
 	'NA' => ['chi','e','i','ke','kwi','li','mwi','pe','ti','wi','zi'],
 	'DBL' => ['wam','aa','wau','yai','lali','chachi','zazi','kaka','tati','kwaku','papa','mwamu'],  # double prefixes (OF+SM) for "pure" adjectives
+	'ENCL' => ['nso','be','di','tu','no','po','ko','mo','ni','nji'], # enclitics; see http://www.andylyons.org/chichewa/lesson45_enclitics.pdf and Edmond's morphemes PDF
 	);
 
 # kill tone marks, but leave w's alone
