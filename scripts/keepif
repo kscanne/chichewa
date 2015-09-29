@@ -54,27 +54,44 @@ while (<CONST>) {
 }
 close CONST;
 
+my @clitics = ('','nso','be','di','tu','no','po','ko','mo','ni','nji');
+
 if ($constarbad) {
 	while (<STDIN>) {
 		chomp;
-		if (!exists($seen{$_}) && !exists($seen{mylcfirst($_)})) {
-			print;
-			print "\n";
+		my $w = $_;
+		my $seen = 0;
+		for my $c (@clitics) {
+			my $root = $w;
+			$root =~ s/$c$//;
+			if (exists($seen{$root}) || exists($seen{mylcfirst($root)})) {
+				$seen = 1;
+				last;
+			}
+		}
+		if (!$seen) {
+			print "$w\n";
 		}
 	}
 }
 else {
 	while (<STDIN>) {
 		chomp;
-		if (length($_)==1 || exists($seen{$_})) {
-			print;
-			print "\n";
-		}
-		else {
-			if (exists($seen{mylcfirst($_)})) {
-				print;
-				print "\n";
+		my $w = $_;
+		for my $c (@clitics) {
+			my $root = $w;
+			$root =~ s/$c$//;
+			if (length($w)==1 || exists($seen{$root})) {
+				print "$w\n";
+				last;
 			}
+			else {
+				if (exists($seen{mylcfirst($root)})) {
+					print "$w\n";
+					last;
+				}
+			}
+			
 		}
 	}
 }
